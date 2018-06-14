@@ -21,7 +21,7 @@ import csv
 
 
 training_data = []
-with open('../data/total.csv', newline='') as csvfile:
+with open('../data/1357sample.csv', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',', quotechar='|')
     for row in reader:
         training_data.append({"hscode" : row[0], "item" : row[1] })
@@ -113,7 +113,7 @@ with tf.device('/cpu:0'):
 	# Define model and setup tensorboard
 	model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
 	# Start training (apply gradient descent algorithm)
-	model.fit(train_x, train_y, n_epoch=50, batch_size=8, show_metric=True)
+	model.fit(train_x, train_y, n_epoch=500, batch_size=8, show_metric=True)
 	model.save('model.tflearn')
 
 
