@@ -113,7 +113,7 @@ with tf.device('/cpu:0'):
 	# Define model and setup tensorboard
 	model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
 	# Start training (apply gradient descent algorithm)
-	model.fit(train_x, train_y, n_epoch=500, batch_size=8, show_metric=True)
+	model.fit(train_x, train_y, n_epoch=1000, batch_size=8, show_metric=True, shuffle=True)
 	model.save('model.tflearn')
 
 
@@ -146,10 +146,15 @@ def bow(sentence, words, show_details=False):
 # In[ ]:
 
 
-print(words)
-p = bow("corn meal", words)
-print (p)
-print (classes)
+print("words", words)
+p = bow("guitar", words)
+s = bow("corn meal", words)
+t = bow("rice meal", words)
+
+#print(p)
+#print(s)
+#print(t)
+#print ("classes", classes)
 
 
 # In[ ]:
@@ -157,16 +162,23 @@ print (classes)
 
 #print(model.predict([p]), classes)
 a =np.squeeze(np.asarray(model.predict([p]))) 
-print(a)
+b =np.squeeze(np.asarray(model.predict([s]))) 
+c =np.squeeze(np.asarray(model.predict([t]))) 
+#print(a)
 # for i, v in zip(a, classes):
 # print(i, v)
 from itertools import zip_longest
 import operator
 import collections
 mydict = dict(zip_longest(a, classes))
-
+mydict2 = dict(zip_longest(b, classes))
+mydict3 = dict(zip_longest(c, classes))
 sorted_mydict = collections.OrderedDict(sorted(mydict.items(), reverse=True)[:10])
-print(sorted_mydict)
+sorted_mydict2 = collections.OrderedDict(sorted(mydict2.items(), reverse=True)[:10])
+sorted_mydict3 = collections.OrderedDict(sorted(mydict3.items(), reverse=True)[:10])
+print("guitar", sorted_mydict)
+print("corn meal", sorted_mydict2)
+print("rice meal", sorted_mydict3)
 
 
 # In[ ]:

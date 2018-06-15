@@ -1,0 +1,11 @@
+import csv
+
+if SevenZFile.is_7zfile('testing.csv.7z'):
+    sevenZfile = SevenZFile('testing.csv.7z')
+
+    if 'testing.csv' not in sevenZfile:
+        print('testing.csv is not a member of testing.csv.7z')
+    else:
+        reader = csv.reader(sevenZfile.readlines('testing.csv'))
+        for row in reader:
+            print(', '.join(row))
